@@ -13,7 +13,9 @@ az automation account create --automation-account-name azautomation --location w
 az group create --name windows-vms-rg --location westus
 
 # Deploy an Azure ARM Template - Windows VM - Azure CLI 
-az deployment group create --resource-group windows-vms-rg --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/quickstarts/microsoft.compute/vm-simple-windows/azuredeploy.json
+## Original:
+### az deployment group create --resource-group windows-vms-rg --template-uri https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/quickstarts/microsoft.compute/vm-simple-windows/azuredeploy.json
+az deployment group create --resource-group windows-vms-rg --template-uri https://raw.githubusercontent.com/beformless/Azure_Automation_Lab/main/AzureWindowsServerVMDeploy.JSON
 
 # Enable Desired State Configuration for a virtual machine - Azure Portal
 ## Home > Automation Accounts > azautomation > Configuration Management > State Configuration (DSC) > + Add > simple-vm > Connect > Check Reboot Node if Needed > Ok
