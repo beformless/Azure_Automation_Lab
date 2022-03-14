@@ -19,7 +19,7 @@ az deployment group create --resource-group windows-vm-rg --template-uri https:/
 Step by step directions = Home > Automation Accounts > azautomation > Configuration Management > State Configuration (DSC) > + Add > simple-vm > Connect > Check Reboot Node if Needed > Ok
 
 # Enable Desired State Configuration for a virtual machine - PowerShell
-Register-AzAutomationDscNode -AutomationAccountName azautomation -AzureVMName simple-vm -ResourceGroupName windows-vms-rg -NodeConfigurationName "DSCConfiguration.DomainController"
+Register-AzAutomationDscNode -AutomationAccountName azautomationaccount -AzureVMName mydscdc -ResourceGroupName windows-vm-rg  -ConfigurationMode Apply -RebootNodeIfNeeded $True -NodeConfigurationName "DSCConfiguration.DomainController" -ActionAfterReboot ContinueConfiguration
 
 # Delete a resource to clean up your work
 Remove-AzResourceGroup -Name ExampleResourceGroup
