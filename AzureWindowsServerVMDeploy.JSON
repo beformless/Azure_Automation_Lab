@@ -92,7 +92,7 @@
       },
       "vmName": {
         "type": "string",
-        "defaultValue": "myAzureAutomationDemo-DC-vm",
+        "defaultValue": "mydscdc",
         "metadata": {
           "description": "Name of the virtual machine."
         }
