@@ -41,7 +41,7 @@ $node = Get-AzAutomationDscNode -ResourceGroupName 'automation-account-rg' -Auto
 ## Assign the node configuration to the DSC node
 Set-AzAutomationDscNode -ResourceGroupName 'automation-account-rg' -AutomationAccountName 'azautomationaccount' -NodeConfigurationName 'AzureADDCBuild.localhost' -NodeId $node.Id
 
-## Start a DSC Deployment - overide current deployment
+## Start a DSC Deployment - override current deployment
 Start-AzAutomationDscNodeConfigurationDeployment -NodeConfigurationName "AzureADDCBuild.localhost" -AutomationAccountName "azautomationaccount" -ResourceGroupName "automation-account-rg" -NodeName mydscdc -force
                         
 ## Delete a resource to clean up your work
