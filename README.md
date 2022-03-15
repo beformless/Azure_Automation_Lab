@@ -10,7 +10,7 @@ az group create --name automation-account-rg --location westus
 az automation account create --automation-account-name azautomationaccount --location westus --resource-group automation-account-rg
 
 ## Enable Managed Identities - Azure Portal
-Step by step directions =  Home > Automation Accounts > azautomationaccount > Account settings > Identity > System Assigned = On > Assign Permissions > Save > Yes
+Step by step directions =  Home > Automation Accounts > azautomationaccount > Account settings > Identity > System Assigned = On > Azure Role Assignments > Add Role Assignment > Scope = Resource Group = windows-vm-rg = Select a Role = Virtual Machine Contributor > Save > Yes
 
 ## Create Resource group - Azure CLI
 az group create --name windows-vm-rg --location westus
@@ -20,9 +20,6 @@ az deployment group create --resource-group windows-vm-rg --template-uri https:/
 
 ## Enable Desired State Configuration for a virtual machine - Azure Portal
 Step by step directions = Home > Automation Accounts > azautomation > Configuration Management > State Configuration (DSC) > + Add > mydscdc > Connect > Check Reboot Node if Needed > Ok
-
-## Try 
-Register-AzAutomationDscNode -ResourceGroupName 'automation-account-rg' -AutomationAccountName 'azautomationaccount' -AzureVMName 'mydscdc'
 
 ## Import modules into the Automation Account - Azure Portal
 Home > Automation Accounts >azautomationaccount > Shared Resources > Modules > Import ActiveDirectoryDSC > Import xPSDesiredStateConfiguration
