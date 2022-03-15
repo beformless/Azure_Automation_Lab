@@ -33,7 +33,7 @@ Home > Automation Accounts > azautomationaccount > Shared Resources > Credential
 Import-AzAutomationDscConfiguration -SourcePath './AzureADDCBuild.ps1' -ResourceGroupName 'automation-account-rg' -AutomationAccountName 'azautomationaccount' -Published
 
 ## Compile a configuration into a node - PowerShell
-Start-AzAutomationDscCompilationJob -ConfigurationName 'AzureADDCBuild.localhost' -ResourceGroupName 'automation-account-rg' -AutomationAccountName 'azautomationaccount'
+Start-AzAutomationDscCompilationJob -ConfigurationName 'AzureADDCBuild' -ResourceGroupName 'automation-account-rg' -AutomationAccountName 'azautomationaccount'
 
 ## Get the ID of the DSC node and place it into a variable - PowerShell
 $node = Get-AzAutomationDscNode -ResourceGroupName 'automation-account-rg' -AutomationAccountName 'azautomationaccount' -Name 'mydscdc'
