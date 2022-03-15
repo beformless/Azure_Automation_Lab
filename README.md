@@ -9,11 +9,11 @@ az group create --name automation-account-rg --location westus
 ## Create Automation account - Azure CLI
 az automation account create --automation-account-name azautomationaccount --location westus --resource-group automation-account-rg
 
-## Enable Managed Identities - Azure Portal
-Step by step directions =  Home > Automation Accounts > azautomationaccount > Account settings > Identity > System Assigned = On > Azure Role Assignments > Add Role Assignment > Scope = Resource Group = windows-vm-rg = Select a Role = Virtual Machine Contributor > Save > Yes
-
 ## Create Resource group - Azure CLI
 az group create --name windows-vm-rg --location westus
+
+## Enable Managed Identities - Azure Portal
+Step by step directions =  Home > Automation Accounts > azautomationaccount > Account settings > Identity > System Assigned = On > Azure Role Assignments > Add Role Assignment > Scope = Resource Group = windows-vm-rg = Select a Role = Virtual Machine Contributor > Save > Yes
 
 ## Deploy an Azure ARM Template - Windows VM - Azure CLI 
 az deployment group create --resource-group windows-vm-rg --template-uri https://raw.githubusercontent.com/beformless/Azure_Automation_Lab/main/AzureWindowsServerVMDeploy.JSON
