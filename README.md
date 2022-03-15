@@ -1,5 +1,5 @@
 # Azure_Automation_Lab
-## Test Azure CLI, PowerShell and DSC
+Deploy a Windows Server 2019 Active Directory Domain Controller VM using Azure Automation.  Show examples using Azure CLI, Azure Resource Manager Template (ARM), PowerShell, State Configuration (DSC) and Azure Portal.
 
 .AUTHOR Jeremy Scarbro
 
