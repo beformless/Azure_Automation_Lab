@@ -10,7 +10,7 @@ az group create --name automation-account-rg --location westus
 az automation account create --automation-account-name azautomationaccount --location westus --resource-group automation-account-rg
 
 ## Enable Managed Identities - Azure Portal
-Step by step directions =  Home > Automation Accounts > azautomationaccount > Account settings > Identity > System Assigned = On > Save > Yes
+Step by step directions =  Home > Automation Accounts > azautomationaccount > Account settings > Identity > System Assigned = On > Assign Permissions > Save > Yes
 
 ## Create Resource group - Azure CLI
 az group create --name windows-vm-rg --location westus
@@ -21,16 +21,15 @@ az deployment group create --resource-group windows-vm-rg --template-uri https:/
 ## Enable Desired State Configuration for a virtual machine - Azure Portal
 Step by step directions = Home > Automation Accounts > azautomation > Configuration Management > State Configuration (DSC) > + Add > mydscdc > Connect > Check Reboot Node if Needed > Ok
 
-## Do I need  to give permissions to the Managed identity?
 ## Try 
 Register-AzAutomationDscNode -ResourceGroupName 'automation-account-rg' -AutomationAccountName 'azautomationaccount' -AzureVMName 'mydscdc'
 
-## Import modules
+## Import modules into the Automation Account - Azure Portal
 Home > Automation Accounts >azautomationaccount > Shared Resources > Modules > Import ActiveDirectoryDSC > Import xPSDesiredStateConfiguration
 
-#Copy needed DSC Resource Modules to the VM
+## Copy needed DSC Resource Modules to the VM?
 
-## Create a Credential 
+## Create a Credential - Azure Portal
 Home > Automation Accounts > azautomationaccount > Shared Resources > Credentials > Add a Credential > Add the Credential specified within AzureADDCBuild.ps1
 
 ## Upload a configuration to Azure Automation - PowerShell
@@ -39,13 +38,13 @@ Import-AzAutomationDscConfiguration -SourcePath './AzureADDCBuild.ps1' -Resource
 ## Compile a configuration into a node - PowerShell
 Start-AzAutomationDscCompilationJob -ConfigurationName 'AzureADDCBuild.localhost' -ResourceGroupName 'automation-account-rg' -AutomationAccountName 'azautomationaccount'
 
-## Get the ID of the DSC node and set a variable
+## Get the ID of the DSC node and place it into a variable - PowerShell
 $node = Get-AzAutomationDscNode -ResourceGroupName 'automation-account-rg' -AutomationAccountName 'azautomationaccount' -Name 'mydscdc'
 
 ## Assign the node configuration to the DSC node
 Set-AzAutomationDscNode -ResourceGroupName 'automation-account-rg' -AutomationAccountName 'azautomationaccount' -NodeConfigurationName 'AzureADDCBuild.localhost' -NodeId $node.Id
 
-## Start a DSC Deployment
+## Start a DSC Deployment - overide current deployment
 Start-AzAutomationDscNodeConfigurationDeployment -NodeConfigurationName "AzureADDCBuild.localhost" -AutomationAccountName "azautomationaccount" -ResourceGroupName "automation-account-rg" -NodeName mydscdc -force
                         
 ## Delete a resource to clean up your work
