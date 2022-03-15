@@ -22,7 +22,7 @@ az deployment group create --resource-group windows-vm-rg --template-uri https:/
 Step by step directions = Home > Automation Accounts > azautomation > Configuration Management > State Configuration (DSC) > + Add > mydscdc > Connect > Check Reboot Node if Needed > Ok
 
 ## Import modules into the Automation Account - Azure Portal
-Home > Automation Accounts >azautomationaccount > Shared Resources > Modules > Import ActiveDirectoryDSC > Import xPSDesiredStateConfiguration
+Home > Automation Accounts > azautomationaccount > Shared Resources > Modules > Import ActiveDirectoryDSC > Import xPSDesiredStateConfiguration
 
 ## Copy needed DSC Resource Modules to the VM?
 
