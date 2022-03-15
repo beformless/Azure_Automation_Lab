@@ -6,7 +6,6 @@ Configuration AzureADDCBuild{
     
     #Download and Install Required Resources
     Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
-    Import-DscResource -ModuleName 'ComputerManagementDSC'
     Import-DscResource -ModuleName 'ActiveDirectoryDsc'
     Import-DscResource -ModuleName 'xPSDesiredStateConfiguration'
 
@@ -14,34 +13,9 @@ Configuration AzureADDCBuild{
     $DomainName = 'TheAbyss.net'
 
     #Designate Credentials, (Not Best practice) - Setup and Utilize Azure Key Vault
-    $Credential = (get-credential)
+    $Credential = Get-AutomationPSCredential 'TheAbyss'
 
     Node localhost{
-        #------------------#
-        # Base OS Settings #
-        #------------------#
-
-            #Set UAC Configuration
-            UserAccountControl 'ChangeNotificationLevel'
-            {
-                IsSingleInstance  = 'Yes'
-                NotificationLevel = 'AlwaysNotify' 
-                SuppressRestart = $true       
-            }
-
-            #Set and monitor the Timezone
-            TimeZone 'TimeZoneSet'
-            {
-                IsSingleInstance = 'Yes'
-                TimeZone = 'Pacific Standard Time'
-            }
-
-            #Set and monitor PowerShell Execution policy
-            PowerShellExecutionPolicy 'PowerShellExecutionPolicySet'
-            {
-                ExecutionPolicyScope = 'LocalMachine'
-                ExecutionPolicy = 'RemoteSigned'
-            }
 
         #------------------#
         # Install Services #

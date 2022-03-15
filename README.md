@@ -1,5 +1,7 @@
 ## Azure_Automation_Lab
- 
+
+.AUTHOR Jeremy Scarbro
+
 # Create Resource group for Automation account - Azure CLI
 az group create --name automation-account-rg --location westus
 
@@ -16,10 +18,15 @@ az group create --name windows-vm-rg --location westus
 az deployment group create --resource-group windows-vm-rg --template-uri https://raw.githubusercontent.com/beformless/Azure_Automation_Lab/main/AzureWindowsServerVMDeploy.JSON
 
 # Enable Desired State Configuration for a virtual machine - Azure Portal
-Step by step directions = Home > Automation Accounts > azautomation > Configuration Management > State Configuration (DSC) > + Add > simple-vm > Connect > Check Reboot Node if Needed > Ok
+Step by step directions = Home > Automation Accounts > azautomation > Configuration Management > State Configuration (DSC) > + Add > mydscdc > Connect > Check Reboot Node if Needed > Ok
 
 # Import modules
 Home > Automation Accounts >azautomationaccount > Shared Resources > Modules > Import ActiveDirectoryDSC > Import xPSDesiredStateConfiguration
+
+#Copy needed DSC Resource Modules to the VM
+
+# Create a Credential 
+Home > Automation Accounts > azautomationaccount > Shared Resources > Credentials > Add a Credential > Add the Credential specified within AzureADDCBuild.ps1
 
 # Upload a configuration to Azure Automation - PowerShell
 Import-AzAutomationDscConfiguration -SourcePath './AzureADDCBuild.ps1' -ResourceGroupName 'automation-account-rg' -AutomationAccountName 'azautomationaccount' -Published
@@ -33,13 +40,8 @@ $node = Get-AzAutomationDscNode -ResourceGroupName 'automation-account-rg' -Auto
 # Assign the node configuration to the DSC node
 Set-AzAutomationDscNode -ResourceGroupName 'automation-account-rg' -AutomationAccountName 'azautomationaccount' -NodeConfigurationName 'AzureADDCBuild' -NodeId $node.Id
 
-# Get the ID of the DSC node
-$node = Get-AzAutomationDscNode -ResourceGroupName 'MyResourceGroup' -AutomationAccountName 'myAutomationAccount' -Name 'DscVm'
-
-# Get an array of status reports for the DSC node
-$reports = Get-AzAutomationDscNodeReport -ResourceGroupName 'MyResourceGroup' -AutomationAccountName 'myAutomationAccount' -NodeId $node.Id
-
-# Display the most recent report
-$reports[0]
+# Start a DSC Deployment
+Start-AzAutomationDscNodeConfigurationDeployment -NodeConfigurationName "AzureADDCBuild" -AutomationAccountName "azautomationaccount" -ResourceGroupName "automation-account-rg" -NodeName mydscdc -force
+                        
 # Delete a resource to clean up your work
 Remove-AzResourceGroup -Name ExampleResourceGroup
